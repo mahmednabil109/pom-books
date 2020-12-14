@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            background: url("background1.jpg") no-repeat center center;
+            background-size: cover;
+            height: 100vh;
+            font-family: monospace;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        input {
+            border: none;
+            outline: none;
+            font-size: 20px;
+            padding: 4px;
+            border-radius: 5px;
+        }
+        
+        .container {
+            width: 600px;
+            height: 100px;
+            margin: 12px;
+        }
+        
+        .container h1 {
+            text-align: center;
+            color: white;
+            font-size: 42px;
+        }
+        
+        .cont {
+            width: 600px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+        
+        .cont form {
+            margin-bottom: 200px;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, .5);
+            border-radius: 5px;
+            padding: 30px 10px;
+        }
+        
+        .cont .wrap {
+            display: flex;
+            flex-direction: column;
+            margin: 8px;
+        }
+        
+        .cont .wrap input {
+            height: 25px;
+            width: 250px;
+        }
+        
+        .cont .wrap input:hover {
+            cursor: pointer;
+        }
+        
+        .cont .wrap input[type="submit"] {
+            height: 40px;
+            font-size: 20px;
+            font-family: monospace;
+            color: white;
+            background-color: #333;
+            align-self: center;
+            width: 100px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome</title>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome</h1>
+    </div>
+    <div class="cont">
+        <form method="POST">
+            <div class="wrap">
+                <label for="user">Username</label>
+                <input id="user" type="text" name="username">
+            </div>
+            <div class="wrap">
+                <label for="pass">Password</label>
+                <input id="pass" type="password" name="password">
+            </div>
+            <div class="wrap">
+                <input type="submit" value="Login">
+                <a href="registration">I dont have an account</a>
+            </div>
+        </form>
+
+    </div>
+</body>
+
+</html>
