@@ -7,41 +7,80 @@
             background-image: url("background2.jpg");
             background-repeat: no-repeat;
             background-size: 100%;
-            }
+        }
+        
         h1 {
             color: white;
             text-align: center;
             -webkit-text-stroke: 1px blue;
         }
+        
         .cont {
-            position:relative;
-            left:600px;
-            top:50px;
+            position: relative;
+            left: 600px;
+            top: 50px;
             color: white;
             -webkit-text-stroke: 0.5px black;
+        }
+        
+        .msg {
+            width: 400px;
+            height: 30px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f51111;
+            font: bold 20px Georgia, sans-serif;
+            text-align: center;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 2px 2px 8px rgba(255, 255, 255, 0.9);
+            animation: down .8s ease-in-out, up .6s ease-in-out 5s;
+            animation-fill-mode: forwards
+        }
+        
+        @keyframes down {
+            from {
+                top: -40px;
+            }
+            to {
+                top: 10px;
+            }
+        }
+        
+        @keyframes up {
+            from {
+                top: 10px;
+            }
+            to {
+                top: -40px;
+            }
         }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registration</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-    <div class="container">
-        <h1>Registration</h1>
-    </div>
-    <div class="cont">
-        <form method='post' action='/register'>
-            Username: <br>
-            <input type="text" id="user" name="username"> <br>
-            Password: <br>
-            <input type="password" id="password" name="password"> <br> <br>
-            <input type="submit" id="simple_click" class="btn btn-secondary" value="Register"> <br>
-        </form>
-    </div>
+    <% if(locals.msg){%>
+        <div class="msg">
+            <%= msg %>
+        </div>
+        <%}%>
+            <div class="container">
+                <h1>Registration</h1>
+            </div>
+            <div class="cont">
+                <form method='post' action='/register'>
+                    Username: <br>
+                    <input type="text" id="user" name="username"> <br> Password: <br>
+                    <input type="password" id="password" name="password"> <br> <br>
+                    <input type="submit" id="simple_click" class="btn btn-secondary" value="Register"> <br>
+                </form>
+            </div>
 </body>
 
 </html>

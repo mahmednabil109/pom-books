@@ -17,11 +17,11 @@ module.exports={
             },
 
     add_to_db  : function (username, password){
-                    if(username_registerd(username))
+                    if(this.username_registerd(username))
                         return 1;
                     this.users.push({username,password});
                     // console.log(this.users);
-                    update_db();
+                    this.update_db();
                     return 0;
                 },
 
