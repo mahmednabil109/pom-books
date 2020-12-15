@@ -48,6 +48,7 @@ function redirectLogin(req,res,next){
     }
 }
 
+//? GET REQUESTS
 
 app.get('/',(req,res)=>{
     let tmp = req.session.msg;
