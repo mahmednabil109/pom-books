@@ -111,18 +111,16 @@ app.get('/readlist',redirectLogin,(req,res)=>{
 app.post('/register',(req,res)=>{
     const {username, password} = req.body;
     // check&update arr --> db
-    const ret = db.add_to_db(username, password);
-    // return 1 when user name is already registered
-    // TODO return a info message
-    if(ret == 1)
+    // return false when user name is already registered
+    if(!db.add_to_db(username,password))
         res.render('registration',{msg: "Username is already taken!"});
     else
         res.render('login');
 });
 
+// TODO implement the search functionality
 app.post('/search',(req,res)=>{
     console.log(req.body);
-    // TODO implemetent
     res.render('searchresults');
 });
 
@@ -133,7 +131,6 @@ app.post('/' , (req,res)=>{
         console.log(req.session.user_name);
         return res.redirect('/home');
     }else{
-        // TODO message
         res.render('login', {msg : "Wrong username or password!"});
     }
 

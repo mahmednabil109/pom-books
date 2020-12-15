@@ -18,11 +18,11 @@ module.exports={
 
     add_to_db  : function (username, password){
                     if(this.username_registerd(username))
-                        return 1;
+                        return false;
                     this.users.push({username,password});
                     // console.log(this.users);
                     this.update_db();
-                    return 0;
+                    return true;
                 },
 
     username_registerd : function (username){
