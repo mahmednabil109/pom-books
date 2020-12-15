@@ -1,27 +1,26 @@
 'use strict';
-let express = require('express');
-let session = require('express-session');
-let bodyParser = require('body-parser');
-let fs = require('fs');
-let db = require('./models.js');
 
-let app = express()
-let PORT = process.env.PORT || 8080;
-let SESS_SECRET = process.env.SECRET || 'secret';
-let SESS_NAME = 'pom';
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const db = require('./models.js');
 
-
+const app = express()
+const PORT = process.env.PORT || 8080;
+const SESS_SECRET = process.env.SECRET || 'secret';
+const SESS_NAME = 'pom';
 
 if (!fs.existsSync('db.json'))
     // create and empty db 
     db.update_db();
 // read data in the db
-db.read_db()
+db.read_db();
 
 app.use(express.static('public'));
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: false,
 }));
 
 // handling the sessions & cookies
@@ -34,13 +33,12 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 2, // 2 houres
         sameSite: true,
         secure: false,   
-    }
+    },
 }));
 
 // check the cookie --> user_name
 function redirectLogin(req,res,next){
     console.log('in',req.session.user_name);
-    console.log(req.session)
     if(!req.session.user_name){
         req.session.msg = "you have to login first";
         res.redirect('/');

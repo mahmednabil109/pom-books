@@ -34,7 +34,7 @@ module.exports={
                         },
     valid_user : function (username,password){
                     for (const user of this.users) {
-                        if(user.username == username &&user.password==password)
+                        if(user.username == username && user.password==password)
                             return true;
                     }
                     return false;
