@@ -131,7 +131,6 @@ app.post('/' , (req,res)=>{
     if(db.valid_user(username,password)){
         req.session.user_name=username;
         console.log(req.session.user_name);
-        console.log(req.session)
         return res.redirect('/home');
     }else{
         // TODO message
