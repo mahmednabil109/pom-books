@@ -4,7 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const db = require('./models.js');
+const db = require('./utils/models.js');
 
 const app = express()
 const PORT = process.env.PORT || 8080;
