@@ -36,6 +36,8 @@ app.use(session({
     },
 }));
 
+//? REDIRECT FUNCTIONS
+
 // check the cookie --> user_name
 function redirectLogin(req,res,next){
     // console.log('in',req.session.user_name);
@@ -48,9 +50,17 @@ function redirectLogin(req,res,next){
     }
 }
 
+function redirectHome(req,res,next){
+     if(!req.session.user_name)
+        next();
+    else
+        res.redirect('/home');
+}
+
 //? GET REQUESTS
 
-app.get('/',(req,res)=>{
+// adding redirect home incase the user is aleardy signed in
+app.get('/',redirectHome,(req,res)=>{
     let tmp = req.session.msg;
     if(tmp)
         res.clearCookie(SESS_NAME);
@@ -58,54 +68,29 @@ app.get('/',(req,res)=>{
 
 });
 
-app.get('/registration',(req,res)=>{
-    res.render('registration');
+// this route uses regex to count for any requests to none exist resources
+// this reges matches any string that ends with .ico or .mp4
+app.get(/^\/(.*)\.(ico|mp4)/,(req,res)=>{
+    console.log(req.params);
+    res.status(404);
+    res.send('<h1 style="color:red;text-align:center">404 :(</h1>');
+})
+
+// this is a url template -place holder for any url- not `:page` is a pramater
+app.get('/:page',redirectLogin,(req,res)=>{
+    // use req.params to access --> the url paramater
+    // we have to check for errors as the user might ask for a page that is not exist 
+    res.render(`${req.params.page}`,(err, html)=>{
+        // return simple 404 page if there is any error
+        if(err){
+            res.status(404);
+            return res.send('<h1 style="color:red;text-align:center">404 :(</h1>');
+        }
+        // or simply return the rendered page
+        res.send(html);
+    });
 });
 
-app.get('/home',redirectLogin,(req,res)=>{
-    
-    res.render('home');
-});
-
-app.get('/novel',redirectLogin,(req,res)=>{
-    res.render('novel');
-});
-
-app.get('/poetry',redirectLogin,(req,res)=>{
-    res.render('poetry');
-});
-
-app.get('/leaves',redirectLogin,(req,res)=>{
-    res.render('leaves');
-});
-
-app.get('/sun',redirectLogin,(req,res)=>{
-    res.render('sun');
-});
-
-app.get('/flies',redirectLogin,(req,res)=>{
-    res.render('flies');
-});
-
-app.get('/grapes',redirectLogin,(req,res)=>{
-    res.render('grapes');
-});
-
-app.get('/fiction',redirectLogin,(req,res)=>{
-    res.render('fiction');
-});
-
-app.get('/dune',redirectLogin,(req,res)=>{
-    res.render('dune');
-});
-
-app.get('/mockingbird',redirectLogin,(req,res)=>{
-    res.render('mockingbird');
-});
-
-app.get('/readlist',redirectLogin,(req,res)=>{
-    res.render('readlist');
-});
 
 //? POST REQUESTS
 
