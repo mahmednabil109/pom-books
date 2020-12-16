@@ -71,7 +71,6 @@ app.get('/',redirectHome,(req,res)=>{
 // this route uses regex to count for any requests to none exist resources
 // this reges matches any string that ends with .ico or .mp4
 app.get(/^\/(.*)\.(ico|mp4)/,(req,res)=>{
-    console.log(req.params);
     res.status(404);
     res.send('<h1 style="color:red;text-align:center">404 :(</h1>');
 })
