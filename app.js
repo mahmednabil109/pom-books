@@ -71,7 +71,7 @@ app.get('/',redirectHome,(req,res)=>{
 app.get(/^\/(.*)\.(ico|mp4)/,(req,res)=>{
     res.status(404);
     res.send('<h1 style="color:red;text-align:center">404 :(</h1>');
-})
+});
 
 // this is a url template -place holder for any url- not `:page` is a pramater
 app.get('/:page',redirectLogin,(req,res)=>{
