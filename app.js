@@ -9,7 +9,7 @@ const db = require('./models.js');
 const app = express()
 const PORT = process.env.PORT || 8080;
 const SESS_SECRET = process.env.SECRET || 'secret';
-const SESS_NAME = 'pom';
+const SESS_NAME = process.env.SESS_NAME|| 'pom';
 
 if (!fs.existsSync('db.json'))
     // create and empty db 
