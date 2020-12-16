@@ -40,12 +40,10 @@ app.use(session({
 
 // check the cookie --> user_name
 function redirectLogin(req,res,next){
-    // console.log('in',req.session.user_name);
     if(!req.session.user_name){
         req.session.msg = "you have to login first";
         res.redirect('/');
     }else{
-        // console.log(req.session.user_name);
         next();
     }
 }
@@ -105,7 +103,6 @@ app.post('/register',(req,res)=>{
 
 // TODO implement the search functionality
 app.post('/search',(req,res)=>{
-    // console.log(req.body);
     res.render('searchresults');
 });
 
@@ -113,15 +110,13 @@ app.post('/' , (req,res)=>{
     const {username,password} = req.body;
     if(db.valid_user(username,password)){
         req.session.user_name=username;
-        // console.log(req.session.user_name);
         return res.redirect('/home');
     }else{
         res.render('login', {msg : "Wrong username or password!"});
     }
+});
 
-})
-
-
+// initiating the server
 app.listen(PORT, ()=>{
     console.log(`the server is up and running http://127.0.0.1:${PORT}`);
 });
