@@ -5,14 +5,12 @@ module.exports={
     users : [],
     update_db : function (){
                     const data = JSON.stringify(this.users);
-                    console.log('this is data',data)
-                    fs.writeFile('db.json',data,'utf-8',() => {console.log('done updating db')});
+                    fs.writeFile('db.json',data,'utf-8',() => {/*console.log('done updating db')*/});
                 },
     read_db : function(){
                 fs.readFile('db.json',(err,data)=>{
                     if(err) throw err;
                     this.users = JSON.parse(data);
-                    console.log(this.users);
                 })
             },
 
