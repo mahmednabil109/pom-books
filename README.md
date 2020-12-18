@@ -1,5 +1,5 @@
 # POM BOOKS SITE
-> # instructions
+> # Instructions
 
 * To intstall the dependencies simply type
     ```bash
