@@ -57,8 +57,13 @@ function redirectHome(req,res,next){
 
 //? GET REQUESTS
 
-// adding redirect home incase the user is aleardy signed in
+// to match the url with page currently displayed
 app.get('/',redirectHome,(req,res)=>{
+    res.redirect('/login');
+});
+
+// adding redirect home incase the user is aleardy signed in
+app.get('/login',redirectHome,(req,res)=>{
     let tmp = req.session.msg;
     if(tmp)
         res.clearCookie(SESS_NAME);
@@ -66,9 +71,13 @@ app.get('/',redirectHome,(req,res)=>{
 
 });
 
+app.get('/registration',(req,res)=>{
+    res.render('registration');
+});
+
 // this route uses regex to count for any requests to none exist resources
 // this reges matches any string that ends with .ico or .mp4
-app.get(/^\/(.*)\.(ico|mp4)/,(req,res)=>{
+app.get(/^\/(.*)\..*/,(req,res)=>{
     res.status(404);
     res.send('<h1 style="color:red;text-align:center">404 :(</h1>');
 });
@@ -98,15 +107,15 @@ app.post('/register',(req,res)=>{
     if(!db.add_to_db(username,password))
         res.render('registration',{msg: "Username is already taken!"});
     else
-        res.render('login');
+        res.redirect('login');
 });
 
 // TODO implement the search functionality
 app.post('/search',(req,res)=>{
-    res.render('searchresults');
+    res.redirect('searchresults');
 });
 
-app.post('/' , (req,res)=>{
+app.post('/login' , (req,res)=>{
     const {username,password} = req.body;
     if(db.valid_user(username,password)){
         req.session.user_name=username;

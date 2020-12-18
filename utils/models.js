@@ -20,7 +20,6 @@ module.exports={
                     if(this.username_registerd(username))
                         return false;
                     this.users.push({username,password});
-                    // console.log(this.users);
                     this.update_db();
                     return true;
                 },
