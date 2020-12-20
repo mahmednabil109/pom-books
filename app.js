@@ -75,6 +75,13 @@ app.get('/registration',(req,res)=>{
     res.render('registration');
 });
 
+// adding the route for the user to logout and end the session
+
+app.get('/logout',(req,res)=>{
+    res.clearCookie(SESS_NAME);
+    res.redirect('\login');
+});
+
 // this route uses regex to count for any requests to none exist resources
 // this reges matches any string that ends with .ico or .mp4
 app.get(/^\/(.*)\..*/,(req,res)=>{
