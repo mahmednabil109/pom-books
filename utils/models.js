@@ -3,6 +3,9 @@ module.exports = {
     // DB IMP
 
     users : [],
+    books : [{page: "dune", title:"Dune"} , {page: "grapes", title: "The Grapes of Wrath"}, 
+    {page: "flies", title:"Lord of the Flies"}, {page: "leaves", title: "Leaves of Grass"}, 
+    {page: "mockingbird", title: "To Kill a Mockingbird"}, { page: "sun", title: "The Sun and Her Flowers"}],
     update_db : function (){
                     const data = JSON.stringify(this.users);
                     fs.writeFile('db.json',data,'utf-8',() => {/*console.log('done updating db')*/});

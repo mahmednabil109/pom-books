@@ -13,6 +13,44 @@
             text-align: center;
             -webkit-text-stroke: 1px blue;
         }
+        h1.error{
+            -webkit-text-stroke: 1px red;
+        }
+        .container{
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .book{
+            width: 250px;
+            background: rgba( 255,255,255, .2);
+            border-radius: 5px;
+            height: 350px;
+            margin: 6px;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+
+        }
+
+        .book img{
+            height: 75%;
+            width: 80%;
+        }
+        .book p{
+            color: white;
+            font-size: 20px;
+            font-family: sans-serif;
+            text-transform: capitalize;
+            margin: 6px 0;
+
+        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,5 +76,18 @@
             </form>
         </div>
     </nav>
+    <div class="container">
+        <% if (result.length > 0) {%>
+        <% for(var book of result){ %>
+            <div class="book">
+                <img src="<%= book.page%>.jpg" alt="<%= book.title%>">
+                <p><%= book.title%></p>
+                <a href="/<%= book.page%>" class="btn btn-secondary ml-3" style="margin-left: 0px!important;"> Read more</a>
+            </div>
+            <% } %>
+        <%} else {%>
+                <h1 class="error"> BOOK NOT FOUND :( </h1>
+        <% } %>
+        </div>
 </body>
 </html>
