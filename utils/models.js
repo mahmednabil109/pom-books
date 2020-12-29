@@ -1,5 +1,5 @@
 let fs = require('fs');
-module.exports={
+module.exports = {
     // DB IMP
 
     users : [],
@@ -17,7 +17,7 @@ module.exports={
     add_to_db  : function (username, password){
                     if(this.username_registerd(username))
                         return false;
-                    this.users.push({username,password});
+                    this.users.push({username, password , readList: []});
                     this.update_db();
                     return true;
                 },
@@ -35,5 +35,26 @@ module.exports={
                             return true;
                     }
                     return false;
-                }
+                },
+    add_to_readList : function (username, bookname){
+        for(let user of this.users){
+            if(user.username == username){
+                if(!user.readList) user.readList = [];
+                if(user.readList.includes(bookname)) return false;
+                user.readList.push(bookname);
+                this.update_db();
+                return true;
+            }
+        }
+    },
+
+    get_readList : function (username){
+        for(let user of this.users){
+            if(user.username == username){
+                return user.readList || [];
+            }
+        }
+        return false;
+    }
+    
 }

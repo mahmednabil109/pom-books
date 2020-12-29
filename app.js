@@ -5,6 +5,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const db = require('./utils/models.js');
+const { json } = require('body-parser');
 
 const app = express()
 const PORT = process.env.PORT || 8080;
@@ -93,7 +94,11 @@ app.get(/^\/(.*)\..*/,(req,res)=>{
 app.get('/:page',redirectLogin,(req,res)=>{
     // use req.params to access --> the url paramater
     // we have to check for errors as the user might ask for a page that is not exist 
-    res.render(`${req.params.page}`,(err, html)=>{
+    let msg = req.session.msg;
+    console.log(msg);
+    if(req.session.msg) 
+        req.session.msg = "";
+    res.render(`${req.params.page}`, {msg}, (err, html)=>{
         // return simple 404 page if there is any error
         if(err){
             res.status(404);
@@ -130,6 +135,17 @@ app.post('/login' , (req,res)=>{
     }else{
         res.render('login', {msg : "Wrong username or password!"});
     }
+});
+
+app.post('/addToReadList', (req, res)=>{
+    console.log(req.body);
+    let success = db.add_to_readList(req.session.user_name, req.body.bookname);
+    let msg = "book already exists";
+    if(success){
+        msg = "book added successfully";
+    }
+    req.session.msg = msg;
+    res.redirect(`/${req.body.bookname}`);
 });
 
 // initiating the server
