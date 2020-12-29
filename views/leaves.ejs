@@ -45,6 +45,38 @@
         #my {
             zoom: 110%;
         }
+        .msg {
+            width: 400px;
+            height: 30px;
+            z-index: 100;
+            position: absolute;
+            background: #f51111;
+            font: bold 20px Georgia, sans-serif;
+            text-align: center;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 2px 2px 8px rgba(255, 255, 255, 0.9);
+            animation: down .8s ease-in-out, up .6s ease-in-out 5s;
+            animation-fill-mode: forwards
+        }
+        
+        @keyframes down {
+            from {
+                top: -40px;
+            }
+            to {
+                top: 10px;
+            }
+        }
+        
+        @keyframes up {
+            from {
+                top: 10px;
+            }
+            to {
+                top: -40px;
+            }
+        }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,6 +87,11 @@
 </head>
 
 <body>
+    <% if(locals.msg){%>
+        <div class="msg">
+            <%= msg %>
+        </div>
+        <%}%>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
         <a class="navbar-brand" style="color: rgb(191, 255, 161)">Leaves of Grass</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -78,8 +115,9 @@
         A poetry collection by American poet Walt Whitman (1819–1892), each poem of which is loosely connected and represents the celebration of his philosophy of life and humanity.
     </div>
     <div class="readlist">
-        <button id="readlist" class="btn btn-secondary ml-3">Add to Want to Read List</button>
-    </div>
+        <form action="/addToReadList" method="POST">
+            <button id="readlist" class="btn btn-secondary ml-3" value="leaves" name="bookname">Add to Want to Read List</button>
+        </form>    </div>
     <div class="video">
         <video width="480" height="360" controls>
             <source src="/leaves.mp4">

@@ -5,6 +5,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const db = require('./utils/models.js');
+const { json } = require('body-parser');
 
 const app = express()
 const PORT = process.env.PORT || 8080;
@@ -82,6 +83,23 @@ app.get('/logout',(req,res)=>{
     res.redirect('\login');
 });
 
+app.get('/readlist', redirectLogin, (req, res)=>{
+    let pages = db.get_readList(req.session.user_name);
+    let books = [];
+    db.books.map((entry)=>{
+        if(pages.includes(entry.page))
+            books.push(entry);
+    });
+    res.render('readlist', {books});
+});
+
+app.get('/searchresults', redirectLogin, (req, res)=>{
+    let result = req.session.searchResult || [];
+    // clear search results from session
+    req.session.searchResult = [];
+    res.render('searchresults', {result});
+});
+
 // this route uses regex to count for any requests to none exist resources
 // this reges matches any string that ends with .ico or .mp4
 app.get(/^\/(.*)\..*/,(req,res)=>{
@@ -93,7 +111,10 @@ app.get(/^\/(.*)\..*/,(req,res)=>{
 app.get('/:page',redirectLogin,(req,res)=>{
     // use req.params to access --> the url paramater
     // we have to check for errors as the user might ask for a page that is not exist 
-    res.render(`${req.params.page}`,(err, html)=>{
+    let msg = req.session.msg;
+    if(req.session.msg) 
+        req.session.msg = "";
+    res.render(`${req.params.page}`, {msg}, (err, html)=>{
         // return simple 404 page if there is any error
         if(err){
             res.status(404);
@@ -118,7 +139,18 @@ app.post('/register',(req,res)=>{
 });
 
 // TODO implement the search functionality
+<<<<<<< HEAD
 app.post('/search', (req, res)=>{
+=======
+app.post('/search',(req,res)=>{
+    let text = req.body.Search.toLowerCase().trim();
+    let result =[];
+    db.books.map((entry)=>{
+        if(entry.title.toLowerCase().includes(text) && text)
+            result.push(entry);
+    });
+    req.session.searchResult = result;
+>>>>>>> 9ecd72347d882ad0cfd543776038cffe24855f24
     res.redirect('searchresults');
 });
 
@@ -130,6 +162,16 @@ app.post('/login' , (req, res)=>{
     }else{
         res.render('login', {msg : "Wrong username or password!"});
     }
+});
+
+app.post('/addToReadList', (req, res)=>{
+    let success = db.add_to_readList(req.session.user_name, req.body.bookname);
+    let msg = "book already exists";
+    if(success){
+        msg = "book added successfully";
+    }
+    req.session.msg = msg;
+    res.redirect(`/${req.body.bookname}`);
 });
 
 // initiating the server
