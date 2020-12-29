@@ -118,11 +118,11 @@ app.post('/register',(req,res)=>{
 });
 
 // TODO implement the search functionality
-app.post('/search',(req,res)=>{
+app.post('/search', (req, res)=>{
     res.redirect('searchresults');
 });
 
-app.post('/login' , (req,res)=>{
+app.post('/login' , (req, res)=>{
     const {username,password} = req.body;
     if(db.valid_user(username,password)){
         req.session.user_name=username;
