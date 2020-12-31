@@ -1,87 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <style>
         body {
-            background-image: url("background3.jpg");
-            background-repeat: no-repeat;
-            background-size: 100%;
+            background: url("background3.jpg") no-repeat center center;
+            background-size: cover;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-
+        
         h1 {
             color: white;
             text-align: center;
             -webkit-text-stroke: 1px blue;
         }
-        .container{
-            height: 100vh;
+        
+        .container {
+            min-height: 100vh;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
             align-items: flex-start;
         }
-
-        .book{
+        
+        .book {
             width: 250px;
-            background: rgba( 255,255,255, .2);
-            border-radius: 5px;
             height: 350px;
+            background: rgba( 255, 255, 255, .2);
+            border-radius: 5px;
             margin: 6px;
             padding: 6px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-
+            transition: transform .3s;
         }
-
-        .book img{
+        
+        .book img {
             height: 75%;
             width: 80%;
         }
-        .book p{
+        
+        .book p {
             color: white;
-            font-size: 20px;
+            font-size: 1.15em;
             font-family: sans-serif;
             text-transform: capitalize;
             margin: 6px 0;
-
+        }
+        
+        .book:hover {
+            box-shadow: 1px 1px 15px rgba(0, 0, 0, .6);
+            transform: scale(1.1);
         }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Want to Read List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
         <a class="navbar-brand" style="color: rgb(191, 255, 161)">Want to Read List</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
             </ul>
             <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search"
-                    aria-label="Search">
+                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
     </nav>
     <div class="container">
-    <% for(var book of books){ %>
-        <div class="book">
-            <img src="<%= book.page%>.jpg" alt="<%= book.title%>">
-            <p><%= book.title%></p>
-            <a href="/<%= book.page%>" class="btn btn-secondary ml-3" style="margin-left: 0px!important;"> Read more</a>
-            <!-- TODO adding the remove button -->  
-        </div>
-        <%}%>
+        <% for(var book of books){ %>
+            <div class="book">
+                <img src="<%= book.page%>.jpg" alt="<%= book.title%>">
+                <p>
+                    <%= book.title%>
+                </p>
+                <a href="/<%= book.page%>" class="btn btn-secondary ml-3" style="margin-left: 0px!important;"> Read more</a>
+                <!-- TODO adding the remove button -->
+            </div>
+            <%}%>
     </div>
 </body>
+
 </html>

@@ -1,87 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <style>
         body {
-            background-image: url("background3.jpg");
-            background-repeat: no-repeat;
-            background-size: 100%;
+            background: url("background3.jpg") no-repeat center center;
+            background-size: cover;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
+        
         h1 {
             color: white;
             text-align: center;
-            -webkit-text-stroke: 1px blue;
+            text-shadow: 1px 1px 15px azure;
         }
-        .cont {
-            position: relative;
-            left: 600px;
-            top: 50px;
+        
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .book {
+            width: 250px;
+            background: rgba( 255, 255, 255, .2);
+            border-radius: 5px;
+            height: 350px;
+            margin: 6px;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            transition: transform .3s;
+        }
+        
+        .book img {
+            height: 75%;
+            width: 80%;
+        }
+        
+        .book p {
             color: white;
-            -webkit-text-stroke: 0.5px black;
+            font-size: 1.15em;
+            font-family: sans-serif;
+            text-transform: capitalize;
+            margin: 6px 0;
         }
-        .container1 {
-            position: fixed;
-            left: 50px;
-            top: 150px;
-            color: white;
-        }
-        .container2 {
-            position: fixed;
-            left: 300px;
-            top: 150px;
-            color: white;
-        }
-        #label1 {
-            position: relative;
-            right: -15px;
-        }
-        #label2 {
-            position: relative;
-            right: 18px;
-        }
-        #leaves, #sun {
-            position: relative;
-            left: 50px;
+        
+        .book:hover {
+            box-shadow: 1px 1px 15px rgba(0, 0, 0, .6);
+            transform: scale(1.03);
         }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Poetry</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
         <a class="navbar-brand" style="color: rgb(191, 255, 161)">Poetry</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
             </ul>
             <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search"
-                    aria-label="Search">
+                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
     </nav>
-    <div class="container1">
-        <img id="image" src="/leaves.jpg" width="193" height="300">
-        <br>
-        <label id="label1" class="ml-4 my-2">Leaves of Grass</label>
-        <br>
-        <button onclick="location.href = '/leaves';" id="leaves" class="btn btn-secondary ml-3"> View </button>
-    </div>
-    <div class="container2">
-        <img id="image" src="/sun.jpg" width="193" height="300">
-        <br>
-        <label id ="label2" class="ml-4 my-2">The Sun and Her Flowers</label>
-        <br>
-        <button onclick="location.href = '/sun';" id="sun" class="btn btn-secondary ml-3"> View </button>
+    <div class="container">
+        <div class="book">
+            <img id="image" src="/leaves.jpg" width="193" height="300">
+            <p>Leaves of Grass</p>
+            <button onclick="location.href = '/leaves';" id="leaves" class="btn btn-secondary"> View </button>
+        </div>
+        <div class="book">
+            <img id="image" src="/sun.jpg" width="193" height="300">
+            <p>The Sun and Her Flowers</p>
+            <button onclick="location.href = '/sun';" id="sun" class="btn btn-secondary"> View </button>
+        </div>
     </div>
 </body>
+
 </html>
