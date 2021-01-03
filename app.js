@@ -139,10 +139,7 @@ app.post('/register',(req,res)=>{
 });
 
 // TODO implement the search functionality
-<<<<<<< HEAD
-app.post('/search', (req, res)=>{
-=======
-app.post('/search',(req,res)=>{
+app.post('/search', (req,res)=>{
     let text = req.body.Search.toLowerCase().trim();
     let result =[];
     db.books.map((entry)=>{
@@ -150,7 +147,6 @@ app.post('/search',(req,res)=>{
             result.push(entry);
     });
     req.session.searchResult = result;
->>>>>>> 9ecd72347d882ad0cfd543776038cffe24855f24
     res.redirect('searchresults');
 });
 
