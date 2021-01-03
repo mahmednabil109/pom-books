@@ -20,11 +20,7 @@ module.exports = {
     add_to_db  : function (username, password){
                     if(this.username_registerd(username))
                         return false;
-<<<<<<< HEAD
-                    this.users.push({username, password, readList : []});
-=======
-                    this.users.push({username, password , readList: []});
->>>>>>> 9ecd72347d882ad0cfd543776038cffe24855f24
+                    this.users.push({username, password, readList: []});
                     this.update_db();
                     return true;
                 },
