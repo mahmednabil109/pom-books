@@ -16,6 +16,7 @@
         "ejs": "^3.1.5",
         "express": "^4.17.1",
         "express-session": "^1.17.1",
+        "serve-favicon": "^2.5.0",
         "uuid": "^8.3.2"
     },
     "devDependencies": {

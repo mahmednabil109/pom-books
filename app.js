@@ -5,7 +5,6 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const db = require('./utils/models.js');
-const { json } = require('body-parser');
 
 const app = express()
 const PORT = process.env.PORT || 8080;
@@ -19,7 +18,8 @@ if (!fs.existsSync('db.json'))
 db.read_db();
 
 app.use(express.static('public'));
-app.set('view engine','ejs');
+app.use('/favicon.ico', express.static('favicon.ico'));
+app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
     extended: false,
 }));
@@ -40,7 +40,7 @@ app.use(session({
 //? REDIRECT FUNCTIONS
 
 // check the cookie --> user_name
-function redirectLogin(req,res,next){
+function redirectLogin(req, res, next){
     if(!req.session.user_name){
         req.session.msg = "you have to login first";
         res.redirect('/');
@@ -49,7 +49,7 @@ function redirectLogin(req,res,next){
     }
 }
 
-function redirectHome(req,res,next){
+function redirectHome(req, res, next){
      if(!req.session.user_name)
         next();
     else
@@ -59,12 +59,12 @@ function redirectHome(req,res,next){
 //? GET REQUESTS
 
 // to match the url with page currently displayed
-app.get('/',redirectHome,(req,res)=>{
+app.get('/', redirectHome, (req, res)=>{
     res.redirect('/login');
 });
 
 // adding redirect home incase the user is aleardy signed in
-app.get('/login',redirectHome,(req,res)=>{
+app.get('/login', redirectHome, (req, res)=>{
     let tmp = req.session.msg;
     if(tmp)
         res.clearCookie(SESS_NAME);
@@ -72,13 +72,13 @@ app.get('/login',redirectHome,(req,res)=>{
 
 });
 
-app.get('/registration',(req,res)=>{
+app.get('/registration', (req, res)=>{
     res.render('registration');
 });
 
 // adding the route for the user to logout and end the session
 
-app.get('/logout',(req,res)=>{
+app.get('/logout', (req, res)=>{
     res.clearCookie(SESS_NAME);
     res.redirect('\login');
 });
@@ -94,21 +94,24 @@ app.get('/readlist', redirectLogin, (req, res)=>{
 });
 
 app.get('/searchresults', redirectLogin, (req, res)=>{
+    // get the parameters passed by the cookies
     let result = req.session.searchResult || [];
+    let {searchToken} = req.session || "";
     // clear search results from session
     req.session.searchResult = [];
-    res.render('searchresults', {result});
+    req.session.searchToken = "";
+    res.render('searchresults', {result, searchToken});
 });
 
 // this route uses regex to count for any requests to none exist resources
 // this reges matches any string that ends with .ico or .mp4
-app.get(/^\/(.*)\..*/,(req,res)=>{
+app.get(/^\/(.*)\.(mp4)*/, (req, res)=>{
     res.status(404);
     res.send('<h1 style="color:red;text-align:center">404 :(</h1>');
 });
 
 // this is a url template -place holder for any url- not `:page` is a pramater
-app.get('/:page',redirectLogin,(req,res)=>{
+app.get('/:page', redirectLogin, (req, res)=>{
     // use req.params to access --> the url paramater
     // we have to check for errors as the user might ask for a page that is not exist 
     let msg = req.session.msg;
@@ -128,7 +131,7 @@ app.get('/:page',redirectLogin,(req,res)=>{
 
 //? POST REQUESTS
 
-app.post('/register',(req,res)=>{
+app.post('/register', (req, res)=>{
     const {username, password} = req.body;
     // check&update arr --> db
     // return false when user name is already registered
@@ -139,7 +142,7 @@ app.post('/register',(req,res)=>{
 });
 
 // TODO implement the search functionality
-app.post('/search',(req,res)=>{
+app.post('/search', (req, res)=>{
     let text = req.body.Search.toLowerCase().trim();
     let result =[];
     db.books.map((entry)=>{
@@ -147,6 +150,7 @@ app.post('/search',(req,res)=>{
             result.push(entry);
     });
     req.session.searchResult = result;
+    req.session.searchToken = text;
     res.redirect('searchresults');
 });
 

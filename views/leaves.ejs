@@ -16,41 +16,34 @@
             -webkit-text-stroke: 1px blue;
         }
         
-        .container1 {
-            position: fixed;
-            left: 50px;
-            top: 150px;
+        .cont {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wrap {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            margin: 12px;
+        }
+        
+        .wrap .card {
+            height: 100% !important;
+            margin: 0 24px;
+            padding: 6px;
+            background: transparent;
+            border: none;
             color: white;
         }
         
-        .container2 {
-            position: fixed;
-            left: 300px;
-            top: 150px;
-            color: white;
-            width: 300px;
-            text-align: justify;
-            text-justify: inter-word;
-        }
-        
-        .video {
-            position: fixed;
-            left: 700px;
-            top: 150px;
-            color: white;
-            width: 300px;
-            text-align: justify;
-            text-justify: inter-word;
-        }
-        
-        .readlist {
-            position: fixed;
-            left: 30px;
-            top: 470px;
-        }
-        
-        #my {
-            zoom: 110%;
+        .wrap .card p {
+            width: 550px;
+            font-size: 1.1em;
         }
         
         .msg {
@@ -58,6 +51,8 @@
             height: 30px;
             z-index: 100;
             position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: #f51111;
             font: bold 20px Georgia, sans-serif;
             text-align: center;
@@ -73,13 +68,13 @@
                 top: -40px;
             }
             to {
-                top: 10px;
+                top: 20px;
             }
         }
         
         @keyframes up {
             from {
-                top: 10px;
+                top: 20px;
             }
             to {
                 top: -40px;
@@ -110,24 +105,29 @@
                     <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <a href="/home" class="btn btn-outline-success m-2 my-sm-0">Home</a>
                     </form>
                 </div>
             </nav>
-            <div class="container1">
-                <img id="image" src="/leaves.jpg" width="193" height="300">
-            </div>
-            <div class="container2">
-                A poetry collection by American poet Walt Whitman (1819–1892), each poem of which is loosely connected and represents the celebration of his philosophy of life and humanity.
-            </div>
-            <div class="readlist">
-                <form action="/addToReadList" method="POST">
-                    <button id="readlist" class="btn btn-secondary ml-3" value="leaves" name="bookname">Add to Want to Read List</button>
-                </form>
-            </div>
-            <div class="video">
-                <video width="480" height="360" controls>
-            <source src="/leaves.mp4">
-        </video>
+            <div class="cont">
+                <div class="wrap">
+                    <div class="card">
+                        <p>
+                            A poetry collection by American poet Walt Whitman (1819–1892), each poem of which is loosely connected and represents the celebration of his philosophy of life and humanity.
+                        </p>
+                        <div class="readlist">
+                            <form action="/addToReadList" method="POST">
+                                <button id="readlist" class="btn btn-secondary ml-3" value="leaves" name="bookname">Add to Want to Read List</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div>
+                        <img id="image" src="/leaves.jpg" width="193" height="300">
+                    </div>
+                </div>
+                <div class="video">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/01AL3EClMgI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </div>
 
 </body>
