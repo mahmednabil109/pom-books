@@ -142,11 +142,7 @@ app.post('/register', (req, res)=>{
 });
 
 // TODO implement the search functionality
-<<<<<<< HEAD
 app.post('/search', (req, res)=>{
-=======
-app.post('/search', (req,res)=>{
->>>>>>> 105945416106bd1face30ba6d970e5f1617b5178
     let text = req.body.Search.toLowerCase().trim();
     let result =[];
     db.books.map((entry)=>{
@@ -154,10 +150,7 @@ app.post('/search', (req,res)=>{
             result.push(entry);
     });
     req.session.searchResult = result;
-<<<<<<< HEAD
     req.session.searchToken = text;
-=======
->>>>>>> 105945416106bd1face30ba6d970e5f1617b5178
     res.redirect('searchresults');
 });
 
