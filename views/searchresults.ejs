@@ -78,7 +78,7 @@
             <ul class="navbar-nav mr-auto">
             </ul>
             <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
-                <input id="search" class="form-control mr-sm-2" name="Search" type="search" placeholder="Search" aria-label="Search" value="<%= searchToken%>">
+                <input id="search" class="form-control mr-sm-2" name="Search" type="search" placeholder="Search" aria-label="Search" value="<%= searchToken%>" required = "True">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 <a href="/home" class="btn btn-outline-success m-2 my-sm-0">Home</a>
             </form>
