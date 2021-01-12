@@ -20,7 +20,7 @@ module.exports = {
     add_to_db  : function (username, password){
                     if(this.username_registerd(username))
                         return false;
-                    this.users.push({username, password , readList: []});
+                    this.users.push({username, password, readList: []});
                     this.update_db();
                     return true;
                 },
