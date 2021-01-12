@@ -135,6 +135,8 @@ app.post('/register', (req, res)=>{
     const {username, password} = req.body;
     // check&update arr --> db
     // return false when user name is already registered
+    if(!username.trim() || !password.trim())
+        return res.render('registration',{msg: "Please Enter a Valid Username & Password !!"});
     if(!db.add_to_db(username,password))
         res.render('registration',{msg: "Username is already taken!"});
     else

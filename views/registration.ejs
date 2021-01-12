@@ -102,8 +102,9 @@
         }
         
         .msg {
-            width: 400px;
+            min-width: 400px;
             height: 30px;
+            padding: 4px;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
@@ -155,11 +156,11 @@
                 <form method="POST" action='/register'>
                     <div class="wrap">
                         <label for="user">Username</label>
-                        <input id="user" type="text" name="username">
+                        <input id="user" type="text" name="username" required>
                     </div>
                     <div class="wrap">
                         <label for="pass">Password</label>
-                        <input id="pass" type="password" name="password">
+                        <input id="pass" type="password" name="password" required>
                     </div>
                     <div class="wrap">
                         <input type="submit" id="simple_click" class="btn btn-secondary" value="Register"> <br>
