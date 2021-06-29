@@ -1,5 +1,7 @@
-# POM BOOKS SITE
-> # Instructions
+# POM Books Website
+You can view the deployed webiste [Here](https://pom-books.herokuapp.com/)
+
+## Instructions
 
 * To intstall the dependencies simply type
     ```bash
